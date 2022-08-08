@@ -54,6 +54,46 @@ ORDER BY RIGHT(name, 3), ID ASC
 SELECT name FROM employee
 ORDER BY name
 
+-- Write a query that prints a list of employee names (i.e.: the name attribute) for employees in Employee having a salary greater than $2000 per month who have been employees for less than 10  months.
+-- Sort your result by ascending employee_id.
+
+SELECT name FROM employee
+WHERE salary > 2000 AND months < 10
+ORDER BY employee_id
+
+
+-- Write a query identifying the type of each record in the TRIANGLES table using its three side lengths. Output one of the following statements for each record in the table:
+-- Equilateral: It's a triangle with  sides of equal length.
+-- Isosceles: It's a triangle with  sides of equal length.
+-- Scalene: It's a triangle with  sides of differing lengths.
+-- Not A Triangle: The given values of A, B, and C don't form a triangle.
+
+SELECT
+CASE 
+WHEN A + B <= C OR A + C <= B OR B + C <= A THEN 'Not A Triangle'
+WHEN A = B AND B = C THEN 'Equilateral'
+WHEN A = B OR A = C OR B = C THEN 'Isosceles'
+WHEN A <> B <> C THEN 'Scalene'
+END 
+
+FROM triangles 
+
+-- Query a count of the number of cities in CITY having a Population larger than 1,00,000.
+
+SELECT COUNT(name) FROM city
+WHERE population > 100000
+
+-- Query the total population of all cities in CITY where District is California.
+
+SELECT SUM(population)
+FROM city
+WHERE district = 'California'
+
+-- Query the average population of all cities in CITY where District is California.
+
+SELECT AVG(population)
+FROM city
+WHERE district = 'California'
 
 
 
