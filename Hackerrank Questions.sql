@@ -167,8 +167,33 @@ SELECT ROUND(long_w, 4)
 FROM station
 WHERE lat_n = (SELECT MIN(lat_n) FROM station WHERE lat_n > 38.7780)
 
+-- Given the CITY and COUNTRY tables, query the sum of the populations of all cities where the CONTINENT is 'Asia'.
+-- Note: CITY.CountryCode and COUNTRY.Code are matching key columns.
 
+SELECT SUM(city.population)
+FROM city
+LEFT JOIN country
+ON city.countrycode = country.code
+WHERE continent = 'Asia'
 
+-- Given the CITY and COUNTRY tables, query the names of all cities where the CONTINENT is 'Africa'.
+-- Note: CITY.CountryCode and COUNTRY.Code are matching key columns.
+
+SELECT city.name
+FROM city
+LEFT JOIN country
+ON city.countrycode = country.code
+WHERE continent = 'Africa'
+
+-- Given the CITY and COUNTRY tables, query the names of all the continents (COUNTRY.Continent) and their respective average city populations (CITY.Population) rounded down to the nearest integer.
+-- Note: CITY.CountryCode and COUNTRY.Code are matching key columns, there are null values in the city table
+
+SELECT continent, Floor(AVG(city.population))
+FROM country
+LEFT JOIN city
+On city.countrycode = country.code
+WHERE city.id IS NOT NULL
+GROUP BY continent 
 
 
 
