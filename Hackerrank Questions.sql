@@ -231,3 +231,23 @@ Query the Euclidean Distance between points p1  and p2  and format your answer t
 SELECT ROUND(SQRT(POWER(MIN(lat_n)-MAX(lat_n), 2)+POWER(MIN(long_w)-MAX(long_w), 2)), 4)
 FROM station          -- As ED -->      h^2 = p^2 + b^2
 
+
+/* (THE REPORT) great question!!!!!!!!!!!!!!!!!!!!!!!!
+Ketty gives Eve a task to generate a report containing three columns: Name, Grade and Mark. 
+Ketty doesn't want the NAMES of those students who received a grade lower than 8. The report must be in descending order by grade -- i.e. higher grades are entered first. 
+If there is more than one student with the same grade (8-10) assigned to them, order those particular students by their name alphabetically. 
+Finally, if the grade is lower than 8, use "NULL" as their name and list them by their grades in descending order. 
+If there is more than one student with the same grade (1-7) assigned to them, order those particular students by their marks in ascending order. */
+
+SELECT
+  CASE
+    WHEN GRADES.GRADE >= 8 THEN STUDENTS.NAME
+    WHEN GRADES.GRADE < 8 THEN NULL
+  END AS NAME,
+  GRADES.GRADE,
+  STUDENTS.MARKS
+FROM STUDENTS
+  LEFT JOIN GRADES ON STUDENTS.MARKS >= MIN_MARK
+  AND STUDENTS.MARKS <= MAX_MARK
+ORDER BY
+  GRADES.GRADE DESC, STUDENTS.NAME ASC, STUDENTS.MARKS ASC;
